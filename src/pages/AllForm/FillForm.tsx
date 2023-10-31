@@ -1,7 +1,28 @@
+/* eslint-disable no-prototype-builtins */
 /* eslint-disable @typescript-eslint/no-explicit-any */
+import axios from "axios";
 import { useForm } from "react-hook-form";
+import { useParams } from "react-router-dom";
+import { baseUrl } from "../../utils/baseUrl";
+import { useEffect, useState } from "react";
+import toast from "react-hot-toast";
 
-function CreatedField({ fields }: any) {
+function FillForm() {
+  const [formData, setFormData] = useState<any>(null);
+
+  const { id } = useParams();
+
+  const handleGetFormData = async () => {
+    const { data } = await axios.get(`${baseUrl}/form/${id}`);
+    if (data.success) {
+      setFormData(data.data);
+    }
+  };
+
+  useEffect(() => {
+    handleGetFormData();
+  }, []);
+
   const {
     register,
     formState: { errors },
@@ -10,21 +31,52 @@ function CreatedField({ fields }: any) {
     // reset,
   } = useForm();
 
-  const onSubmit = async (data: any) => {
-    console.log(data);
+  const onSubmit = async (info: any) => {
+    const formData = [];
+
+    for (const key in info) {
+      if (info.hasOwnProperty(key)) {
+        const value = info[key];
+        formData.push({ name: key, value });
+      }
+    }
+
+    const { data } = await axios.post(`${baseUrl}/form-response/create`, {
+      form: id,
+      data: formData,
+    });
+
+    if (data?.success) {
+      toast.success(data?.message);
+    }
   };
 
   return (
     <div className="max-w-7xl mx-auto border-0 md:border-2 p-0 md:p-5 rounded-lg my-10">
-      <p className="font-bold text-xl text-primary">Created Form Field</p>
+      <p className="font-bold text-xl text-primary">Fill Form</p>
+
+      <div
+        className="h-full md:h-44 my-5 p-2 md:p-5 rounded-lg w-full flex items-center"
+        style={{
+          background: `linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url(${formData?.headerImgUrl})`,
+        }}
+      >
+        <div className="md:flex justify-between w-full text-white">
+          <div>
+            <h1 className="text-4xl font-bold">{formData?.title}</h1>
+            <p>{formData?.description}</p>
+          </div>
+        </div>
+      </div>
+
       <form
         className=" grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 place-content-center "
         onSubmit={handleSubmit(onSubmit)}
       >
-        {fields?.map((field: any) => {
+        {formData?.fields?.map((field: any) => {
           if (field.type !== "select") {
             return (
-              <div className="form-control w-full md:w-96">
+              <div key={field?._id} className="form-control w-full md:w-96">
                 <label className="label">
                   <span className="label-text">{field.name}</span>
                 </label>
@@ -48,7 +100,7 @@ function CreatedField({ fields }: any) {
             );
           } else {
             return (
-              <div className="form-control w-full md:w-96">
+              <div key={field?._id} className="form-control w-full md:w-96">
                 <label className="label">
                   <span className="label-text">Type *</span>
                 </label>
@@ -76,9 +128,15 @@ function CreatedField({ fields }: any) {
             );
           }
         })}
+
+        <input
+          className="btn btn-primary my-auto mt-8 text-white w-44"
+          value={"Submit"}
+          type="submit"
+        />
       </form>
     </div>
   );
 }
 
-export default CreatedField;
+export default FillForm;

@@ -4,11 +4,10 @@ export default function Navbar() {
   const menutItems = (
     <>
       <li>
-        <a>Fill Form</a>
+        <Link to="/fill-form">Fill Form</Link>
       </li>
-
       <li>
-        <a>Form Response</a>
+        <Link to="/form-response">Form Response</Link>
       </li>
     </>
   );
@@ -46,9 +45,6 @@ export default function Navbar() {
         </div>
         <div className="navbar-center hidden lg:flex">
           <ul className="menu menu-horizontal px-1">{menutItems}</ul>
-        </div>
-        <div className="navbar-end">
-          <a className="btn">Button</a>
         </div>
       </div>
     </div>

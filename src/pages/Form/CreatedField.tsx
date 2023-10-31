@@ -50,7 +50,7 @@ function CreatedField({ fields }: any) {
             return (
               <div className="form-control w-full md:w-96">
                 <label className="label">
-                  <span className="label-text">Type *</span>
+                  <span className="label-text">{field.name}</span>
                 </label>
                 <select
                   {...register(field.type, {

@@ -15,8 +15,12 @@ function CreatedField({ fields }: any) {
   };
 
   return (
-    <>
-      <form className="max-w-7xl mx-auto" onSubmit={handleSubmit(onSubmit)}>
+    <div className="max-w-7xl mx-auto border-0 md:border-2 p-0 md:p-5 rounded-lg my-10">
+      <p className="font-bold text-xl text-primary">Created Form Field</p>
+      <form
+        className=" grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 place-content-center "
+        onSubmit={handleSubmit(onSubmit)}
+      >
         {fields?.map((field: any) => {
           if (field.type !== "select") {
             return (
@@ -73,7 +77,7 @@ function CreatedField({ fields }: any) {
           }
         })}
       </form>
-    </>
+    </div>
   );
 }
 

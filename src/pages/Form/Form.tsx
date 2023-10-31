@@ -6,6 +6,7 @@ import axios from "axios";
 import { baseUrl } from "../../utils/baseUrl";
 import FieldCreators from "./FieldCreators";
 import CreatedField from "./CreatedField";
+import toast from "react-hot-toast";
 
 function Form() {
   const [inputFields, setInputFields] = useState<object>([]);
@@ -43,16 +44,23 @@ function Form() {
 
     const { data } = await axios.post(`${baseUrl}/form/create`, info);
 
-    reset();
+    if (data.success) {
+      toast.success(data.message);
+      reset();
+    }
   };
 
   return (
-    <div>
+    <div className="max-w-7xl mx-auto border-0 md:border-2 p-0 md:p-5 rounded-lg my-10">
+      <CreatedField fields={inputFields} />
       <FieldCreators
         inputFields={inputFields}
         setInputFields={setInputFields}
       />
-      <form className="" onSubmit={handleSubmit(onSubmit)}>
+      <form
+        className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 place-content-center  "
+        onSubmit={handleSubmit(onSubmit)}
+      >
         <div className="form-control w-full md:w-96">
           <label className="label">
             <span className="label-text">Title *</span>
@@ -107,13 +115,11 @@ function Form() {
         </div>
 
         <input
-          className="btn btn-primary text-white"
+          className="btn btn-primary text-white w-44"
           value={"Create"}
           type="submit"
         />
       </form>
-
-      <CreatedField fields={inputFields} />
     </div>
   );
 }

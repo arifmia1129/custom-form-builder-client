@@ -107,7 +107,7 @@ function FieldCreators({ setInputFields, inputFields }: any) {
   ];
 
   return (
-    <div className="max-w-7xl mx-auto border-0 md:border-2 p-0 md:p-5 rounded-lg ">
+    <div className="max-w-7xl mx-auto border-0 md:border-2 p-0 md:p-5 rounded-lg my-10">
       <p className="font-bold text-xl text-primary">Create Form Field</p>
       <form
         className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 place-content-center "

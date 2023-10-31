@@ -97,3 +97,16 @@ To run the project locally, follow these steps:
 6. Access the application in your web browser at `http://localhost:3000`.
 
 By following these steps, you should be able to create a custom form builder with a unique design, support for various question types, and the ability to save data in a MongoDB database using the MERN stack.
+
+## Personal analysis for this project
+
+### **Frontend**
+
+1. **Create a new form**
+   - Form title
+   - Form description
+   - Form header image
+   - Form field
+     - label
+     - name
+     -

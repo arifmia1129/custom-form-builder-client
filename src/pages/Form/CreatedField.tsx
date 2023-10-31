@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { useForm } from "react-hook-form";
 
-function Form({ fields }: any) {
+function CreatedField({ fields }: any) {
   const {
     register,
     formState: { errors },
@@ -29,7 +29,7 @@ function Form({ fields }: any) {
                     required: field?.required ? field?.requiredMsg : false,
                   })}
                   type={field.type}
-                  placeholder="Write field name here"
+                  placeholder="Write here"
                   className={`input input-bordered w-full md:w-96 flex items-center ${
                     field.type === "file" && "pt-2"
                   }`}
@@ -72,18 +72,9 @@ function Form({ fields }: any) {
             );
           }
         })}
-
-        {Array.isArray(fields) && fields.length ? (
-          <input
-            // disabled={!agreeTerm}
-            className="btn btn-primary text-white"
-            value={"Submit"}
-            type="submit"
-          />
-        ) : null}
       </form>
     </>
   );
 }
 
-export default Form;
+export default CreatedField;

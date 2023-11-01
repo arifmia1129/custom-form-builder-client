@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 export default function SeeResponse({ data, setIsResponseDisplay }: any) {
-  console.log(data);
+  //   console.log(data);
   return (
     <div>
       <button
